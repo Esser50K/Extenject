@@ -331,7 +331,7 @@ As shown in the above example, DI can be used to easily swap different implement
 
 More important than that is the fact that using a dependency injection framework like Zenject allows you to more easily follow the '[Single Responsibility Principle](http://en.wikipedia.org/wiki/Single_responsibility_principle)'.  By letting Zenject worry about wiring up the classes, the classes themselves can just focus on fulfilling their specific responsibilities.
 
-<a id="overusinginterfaces"></a>Another common mistake that people new to DI make is that they extract interfaces from every class, and use those interfaces everywhere instead of using the class directly.  The goal is to make code more loosely coupled, so it's reasonable to think that being bound to an interface is better than being bound to a concrete class.  However, in most cases the various responsibilities of an application have single, specific classes implementing them, so using interfaces in these cases just adds unnecessary maintenance overhead.  Also, concrete classes already have an interface defined by their public members.  A good rule of thumb instead is to only create interfaces when the class has more than one implementation or in cases where you intend to have multiple implemenations in the future (this is known, by the way, as the [Reused Abstraction Principle](http://codemanship.co.uk/parlezuml/blog/?postid=934))
+<a id="overusinginterfaces"></a>Another common mistake that people new to DI make is that they extract interfaces from every class, and use those interfaces everywhere instead of using the class directly.  The goal is to make code more loosely coupled, so it's reasonable to think that being bound to an interface is better than being bound to a concrete class.  However, in most cases the various responsibilities of an application have single, specific classes implementing them, so using interfaces in these cases just adds unnecessary maintenance overhead.  Also, concrete classes already have an interface defined by their public members.  A good rule of thumb instead is to only create interfaces when the class has more than one implementation or in cases where you intend to have multiple implementations in the future (this is known, by the way, as the [Reused Abstraction Principle](http://codemanship.co.uk/parlezuml/blog/?postid=934))
 
 Other benefits include:
 
@@ -1087,7 +1087,7 @@ There are three ways to do this.
 
 1. **Prefabs**.  You can also directly drag your installer prefab from the Project tab into the InstallerPrefabs property of SceneContext.  Note that in this case you cannot have per-scene overrides like you can when having the prefab instantiated in your scene, but can be nice to avoid clutter in the scene.
 
-1. **Prefabs within Resources folder**.  You can also place your installer prefabs underneath a Resoures folder and install them directly from code by using the Resources path.  For details on usage see [here](#runtime-parameters-for-installers).
+1. **Prefabs within Resources folder**.  You can also place your installer prefabs underneath a Resources folder and install them directly from code by using the Resources path.  For details on usage see [here](#runtime-parameters-for-installers).
 
 Another option in addition to `MonoInstaller` and `Installer<>` is to use `ScriptableObjectInstaller` which has some unique advantages (especially for settings) - for details see [here](#scriptableobject-installer).
 
@@ -1330,7 +1330,7 @@ Note that this will also include factories and memory pools, which is especially
 There are a few things to be aware of:
 
 - No actual logic code is executed - only install bindings is called.  This means that if you have logic inside installers other than bind commands that these will be executed as well and may cause issues when running validation (if that logic requires that the container return actual values)
-- **null** values are injected into the dependencies that are actually instantiated such as installers (regardles of what was binded)
+- **null** values are injected into the dependencies that are actually instantiated such as installers (regardless of what was bound)
 
 You might want to inject some classes even in validation mode.  In that case you can mark them with `[ZenjectAllowDuringValidation]`.
 
@@ -2025,7 +2025,7 @@ What follows below is a more detailed view of what happens when running a scene 
 * Unity scene is unloaded
     * Dispose() is called on all objects mapped to `IDisposable` within all the GameObjectContext's (see [here](#implementing-idisposable) for details)
     * Dispose() is called on all objects mapped to `IDisposable` within the SceneContext installers (see [here](#implementing-idisposable) for details)
-* App is exitted
+* App is exited
     * Dispose() is called on all objects mapped to `IDisposable` within the ProjectContext installers (see [here](#implementing-idisposable) for details)
 
 ## Injecting data across scenes
@@ -3369,7 +3369,7 @@ It is possible to remove or replace bindings that were added in a previous bind 
 
 * **<a id="circular-dependency-error"></a>I keep getting errors complaining about circular reference!  How to address this?**
 
-If two classes are injected into each other and both classes use contructor injection, then obviously it is not possible for zenject to create both of these classes.  However, what you can do instead is switch to use method injection or field/property injection instead.  Or, alternatively, you could use the [LazyInject<>](#just-in-time-resolve) construct.
+If two classes are injected into each other and both classes use constructor injection, then obviously it is not possible for zenject to create both of these classes.  However, what you can do instead is switch to use method injection or field/property injection instead.  Or, alternatively, you could use the [LazyInject<>](#just-in-time-resolve) construct.
 
 ## Cheat Sheet
 
